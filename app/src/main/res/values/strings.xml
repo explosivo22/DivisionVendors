@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Division Vendors</string>
+    <string name="gear">Gear</string>
+    <string name="exotics">Exotics</string>
+    <string name="weapons">Weapons</string>
+    <string name="gear_mods">Gear Mods</string>
+    <string name="weapon_mods">Weapon Mods</string>
+    <string name="score">Score</string>
+    <string name="armor">Armor</string>
+    <string name="price">Price</string>
+    <string name="firearms">Firearms</string>
+    <string name="stamina">Stamina</string>
+    <string name="electronics">Electronics</string>
+    <string name="major">Major Attributes</string>
+    <string name="minor">Minor Attributes</string>
+</resources>
