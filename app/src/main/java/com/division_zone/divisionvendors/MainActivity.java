@@ -61,6 +61,9 @@ public class MainActivity extends AppCompatActivity {
         mContext = MainActivity.this;
         shouldShowUpdateDialog = true;
 
+        if (BuildConfig.isInternetAvailable)
+            AppUpdateUtil.checkForUpdate(mContext);
+
         LocalBroadcastManager.getInstance(this).registerReceiver(showUpdateDialog,
                 new IntentFilter(ACTION_SHOW_UPDATE_DIALOG));
     }
