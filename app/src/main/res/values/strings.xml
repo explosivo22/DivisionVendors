@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Division Vendors</string>
     <string name="gear">Gear</string>
     <string name="exotics">Exotics</string>
     <string name="weapons">Weapons</string>
@@ -13,4 +12,7 @@
     <string name="electronics">Electronics</string>
     <string name="major">Major Attributes</string>
     <string name="minor">Minor Attributes</string>
+    <string name="update_check_failed">An error occured while checking for an update. Please check your internet connection</string>
+    <string name="up_to_date">Your app is up-to-date</string>
+    <string name="cancel">Cancel</string>
 </resources>
