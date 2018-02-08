@@ -70,10 +70,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager){
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new GearFragment(), "Gear");
-        adapter.addFragment(new WeaponsFragment(), "Weapons");
         adapter.addFragment(new GearModsFragment(), "Gear Mods");
         adapter.addFragment(new WeaponModsFragment(), "Weapon Mods");
+        adapter.addFragment(new GearFragment(), "Gear");
+        adapter.addFragment(new WeaponsFragment(), "Weapons");
         viewPager.setAdapter(adapter);
     }
 
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             AppUpdate update = intent.getParcelableExtra("update");
             if (update.getStatus() == AppUpdate.UPDATE_AVAILABLE && shouldShowUpdateDialog
-                    && !isSchoolTicketTrackerBeingUpdated(context)) {
+                    && !isDivisionVendorsBeingUpdated(context)) {
                 //Log.d(TAG, "onReceive: update status:" + update.getStatus());
                 AlertDialog updateDialog = AppUpdateUtil.getAppUpdateDialog(mContext, update);
                 updateDialog.show();
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    public static boolean isSchoolTicketTrackerBeingUpdated(Context context) {
+    public static boolean isDivisionVendorsBeingUpdated(Context context) {
 
         DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
         DownloadManager.Query q = new DownloadManager.Query();

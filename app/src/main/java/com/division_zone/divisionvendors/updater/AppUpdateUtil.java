@@ -29,7 +29,7 @@ import okhttp3.Response;
 @Setter
 public class AppUpdateUtil {
 
-    public static final String GITHUB_RELEASES_URL = "https://api.github.com/repos/explosivo22/DivisonVendors/releases/latest";
+    public static final String GITHUB_RELEASES_URL = "https://api.github.com/repos/explosivo22/DivisionVendors/releases/latest";
 
     public static void checkForUpdate(final Context context) {
         OkHttpClient httpClient = new OkHttpClient();
