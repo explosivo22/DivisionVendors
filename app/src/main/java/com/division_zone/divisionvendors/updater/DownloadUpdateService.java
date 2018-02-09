@@ -10,12 +10,13 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.IBinder;
+import android.util.Log;
 
 import java.io.File;
 
 public class DownloadUpdateService extends Service {
 
-    private static final String FILE_NAME = "DivisionVendors_new.apk";
+    private static final String FILE_NAME = "DivisionVendors.apk";
     public static final String DOWNLOAD_UPDATE_TITLE = "Updating Division Vendors";
 
     @Override
@@ -26,7 +27,7 @@ public class DownloadUpdateService extends Service {
             String downloadURL = intent.getStringExtra("downloadURL");
             String newApkFilePath = getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "/" + FILE_NAME;
             final File newApkFile = new File(newApkFilePath);
-            final Uri downloadUri = Uri.parse("file://" + newApkFile);
+            final Uri downloadUri = Uri.fromFile(newApkFile);
             if (newApkFile.exists())
                 newApkFile.delete();
             DownloadManager.Request request = new DownloadManager.Request(Uri.parse(downloadURL));
