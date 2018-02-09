@@ -160,6 +160,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/gearTable"
                 android:id="@+id/gear_major"
+                android:paddingLeft="10dp"
                 android:text="@string/major"
                 android:background="@drawable/table_cell_bg"/>
 
@@ -168,6 +169,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/gear_major"
                 android:id="@+id/gear_major_value"
+                android:paddingLeft="10dp"
                 android:background="@drawable/table_cell_bg"/>
 
             <TextView
@@ -175,6 +177,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/gear_major_value"
                 android:id="@+id/gear_minor"
+                android:paddingLeft="10dp"
                 android:text="@string/minor"
                 android:background="@drawable/table_cell_bg"/>
 
@@ -182,6 +185,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/gear_minor"
+                android:paddingLeft="10dp"
                 android:id="@+id/gear_minor_value"
                 android:background="@drawable/table_cell_bg"/>
 
