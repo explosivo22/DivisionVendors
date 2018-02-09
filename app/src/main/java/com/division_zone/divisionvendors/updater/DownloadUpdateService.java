@@ -30,7 +30,12 @@ public class DownloadUpdateService extends Service {
             String downloadURL = intent.getStringExtra("downloadURL");
             String newApkFilePath = getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "/" + FILE_NAME;
             final File newApkFile = new File(newApkFilePath);
-            final Uri downloadUri = Uri.fromFile(newApkFile);
+            Uri downloadUri = Uri.parse("");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                downloadUri = FileProvider.getUriForFile(getApplicationContext(), BuildConfig.APPLICATION_ID + ".provider", newApkFile);
+            } else {
+                downloadUri = Uri.fromFile(newApkFile);
+            }
             if (newApkFile.exists())
                 newApkFile.delete();
             DownloadManager.Request request = new DownloadManager.Request(Uri.parse(downloadURL));
@@ -44,6 +49,7 @@ public class DownloadUpdateService extends Service {
             final long startedDownloadId = manager.enqueue(request);
 
             //set BroadcastReceiver to install app when .apk is downloaded
+            final Uri finalDownloadUri = downloadUri;
             BroadcastReceiver onComplete = new BroadcastReceiver() {
                 public void onReceive(Context ctxt, Intent intent) {
                     long finishedDownloadId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
@@ -59,15 +65,14 @@ public class DownloadUpdateService extends Service {
                             if (status == DownloadManager.STATUS_SUCCESSFUL) {
                                 //open the downloaded file
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                    Uri apkUri = FileProvider.getUriForFile(getApplicationContext(), BuildConfig.APPLICATION_ID + ".provider", newApkFile);
                                     Intent install = new Intent(Intent.ACTION_INSTALL_PACKAGE);
                                     install.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                    install.setDataAndType(apkUri, manager.getMimeTypeForDownloadedFile(startedDownloadId));
+                                    install.setData(finalDownloadUri);
                                     ctxt.startActivity(install);
                                 } else {
                                     Intent install = new Intent(Intent.ACTION_VIEW);
                                     install.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    install.setDataAndType(downloadUri, manager.getMimeTypeForDownloadedFile(startedDownloadId));
+                                    install.setDataAndType(finalDownloadUri, manager.getMimeTypeForDownloadedFile(startedDownloadId));
                                     ctxt.startActivity(install);
                                 }
 
