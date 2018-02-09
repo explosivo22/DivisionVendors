@@ -67,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
         mContext = MainActivity.this;
         shouldShowUpdateDialog = true;
 
+        checkForUpdateWrapper();
+
         LocalBroadcastManager.getInstance(this).registerReceiver(showUpdateDialog,
                 new IntentFilter(ACTION_SHOW_UPDATE_DIALOG));
     }
