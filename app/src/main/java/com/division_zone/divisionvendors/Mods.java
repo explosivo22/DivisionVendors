@@ -5,7 +5,15 @@ package com.division_zone.divisionvendors;
  */
 
 public class Mods {
-    private String vendor,name,stat,price,attribute;
+    private String type,vendor,name,stat,price,attribute;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getVendor() {
         return vendor;
@@ -47,7 +55,8 @@ public class Mods {
         this.attribute = attribute;
     }
 
-    public Mods(String vendor, String name, String stat, String price, String attribute) {
+    public Mods(String type, String vendor, String name, String stat, String price, String attribute) {
+        this.type = type;
         this.vendor = vendor;
         this.name = name;
         this.stat = stat;

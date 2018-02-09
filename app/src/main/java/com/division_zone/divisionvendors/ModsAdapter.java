@@ -42,6 +42,16 @@ public class ModsAdapter extends RecyclerView.Adapter<ModsAdapter.MyViewHolder> 
     public void onBindViewHolder(MyViewHolder holder, int position){
         Mods mods = modList.get(position);
 
+        switch (mods.getType()){
+            case "gear-mod":
+                holder.gearmodName.setBackgroundResource(R.color.header_he);
+                break;
+            case "purple-mod":
+                holder.gearmodName.setBackgroundResource(R.color.purple_mod);
+                break;
+            default:
+                break;
+        }
         holder.gearmodVendor.setText(mods.getVendor());
         holder.gearmodName.setText(mods.getName());
         holder.gearmodStat.setText(mods.getStat());

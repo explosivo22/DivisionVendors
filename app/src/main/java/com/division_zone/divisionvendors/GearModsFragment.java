@@ -104,7 +104,7 @@ public class GearModsFragment extends Fragment {
                         for (int i = 0; i < mods.length(); i++) {
                             JSONObject mod = mods.getJSONObject(i);
 
-                            modsList.add(new Mods(mod.getString("vendor"), mod.getString("name"), mod.getString("stat"), mod.getString("price"), mod.getString("attribute")));
+                            modsList.add(new Mods(mod.getString("type"),mod.getString("vendor"), mod.getString("name"), mod.getString("stat"), mod.getString("price"), mod.getString("attribute")));
                         }
                     } catch (JSONException je) {
                         je.printStackTrace();
