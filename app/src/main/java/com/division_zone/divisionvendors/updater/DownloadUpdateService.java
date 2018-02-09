@@ -28,13 +28,12 @@ public class DownloadUpdateService extends Service {
         if (intent != null) {
 
             String downloadURL = intent.getStringExtra("downloadURL");
-            String newApkFilePath = getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "/" + FILE_NAME;
-            final File newApkFile = new File(newApkFilePath);
-            Uri downloadUri = Uri.parse("");
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                downloadUri = FileProvider.getUriForFile(getApplicationContext(), BuildConfig.APPLICATION_ID + ".provider", newApkFile);
-            } else {
-                downloadUri = Uri.fromFile(newApkFile);
+            File newApkFilePath = getExternalFilesDir(null);
+            final File newApkFile = new File(newApkFilePath,FILE_NAME);
+            newApkFile.setReadable(true, false);
+            Uri downloadUri = Uri.fromFile(newApkFile);
+            if (Build.VERSION.SDK_INT >= 24){
+                downloadUri = FileProvider.getUriForFile(getApplicationContext(), getApplicationContext().getPackageName(),newApkFile);
             }
             if (newApkFile.exists())
                 newApkFile.delete();
@@ -66,8 +65,9 @@ public class DownloadUpdateService extends Service {
                                 //open the downloaded file
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                                     Intent install = new Intent(Intent.ACTION_INSTALL_PACKAGE);
+                                    install.putExtra(Intent.EXTRA_NOT_UNKNOWN_SOURCE, true);
                                     install.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                    install.setData(finalDownloadUri);
+                                    install.setDataAndType(finalDownloadUri, manager.getMimeTypeForDownloadedFile(startedDownloadId));
                                     ctxt.startActivity(install);
                                 } else {
                                     Intent install = new Intent(Intent.ACTION_VIEW);
