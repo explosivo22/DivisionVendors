@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.os.IBinder;
 import android.util.Log;
@@ -55,10 +56,18 @@ public class DownloadUpdateService extends Service {
 
                             if (status == DownloadManager.STATUS_SUCCESSFUL) {
                                 //open the downloaded file
-                                Intent install = new Intent(Intent.ACTION_VIEW);
-                                install.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                install.setDataAndType(downloadUri, manager.getMimeTypeForDownloadedFile(startedDownloadId));
-                                ctxt.startActivity(install);
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                    Intent install = new Intent(Intent.ACTION_INSTALL_PACKAGE);
+                                    install.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                    install.setDataAndType(downloadUri, manager.getMimeTypeForDownloadedFile(startedDownloadId));
+                                    ctxt.startActivity(install);
+                                } else {
+                                    Intent install = new Intent(Intent.ACTION_VIEW);
+                                    install.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    install.setDataAndType(downloadUri, manager.getMimeTypeForDownloadedFile(startedDownloadId));
+                                    ctxt.startActivity(install);
+                                }
+
                             } else if (status == DownloadManager.STATUS_FAILED) {
                                 if (newApkFile.exists())
                                     newApkFile.delete();
