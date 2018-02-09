@@ -11,6 +11,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.os.IBinder;
+import android.support.v4.BuildConfig;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 
 import java.io.File;
@@ -57,9 +59,10 @@ public class DownloadUpdateService extends Service {
                             if (status == DownloadManager.STATUS_SUCCESSFUL) {
                                 //open the downloaded file
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                    Uri apkUri = FileProvider.getUriForFile(getApplicationContext(), BuildConfig.APPLICATION_ID + ".provider", newApkFile);
                                     Intent install = new Intent(Intent.ACTION_INSTALL_PACKAGE);
                                     install.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                    install.setDataAndType(downloadUri, manager.getMimeTypeForDownloadedFile(startedDownloadId));
+                                    install.setDataAndType(apkUri, manager.getMimeTypeForDownloadedFile(startedDownloadId));
                                     ctxt.startActivity(install);
                                 } else {
                                     Intent install = new Intent(Intent.ACTION_VIEW);
