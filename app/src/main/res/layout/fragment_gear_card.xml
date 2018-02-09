@@ -55,6 +55,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:textSize="15sp"
                         android:text="@string/score"
                         android:background="@drawable/table_cell_bg"/>
 
@@ -63,6 +64,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:textSize="15sp"
                         android:text="@string/armor"
                         android:background="@drawable/table_cell_bg"/>
 
@@ -71,6 +73,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:textSize="15sp"
                         android:text="@string/price"
                         android:background="@drawable/table_cell_bg"/>
 
@@ -83,6 +86,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:textSize="15sp"
                         android:background="@drawable/table_cell_bg"/>
 
                     <TextView
@@ -90,6 +94,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:textSize="15sp"
                         android:background="@drawable/table_cell_bg"/>
 
                     <TextView
@@ -97,6 +102,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:textSize="15sp"
                         android:background="@drawable/table_cell_bg"/>
 
                 </TableRow>
@@ -108,6 +114,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:textSize="15sp"
                         android:text="@string/firearms"
                         android:background="@drawable/table_cell_bg"/>
 
@@ -116,6 +123,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:textSize="15sp"
                         android:text="@string/stamina"
                         android:background="@drawable/table_cell_bg"/>
 
@@ -124,6 +132,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:textSize="15sp"
                         android:text="@string/electronics"
                         android:background="@drawable/table_cell_bg"/>
 
@@ -136,6 +145,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:textSize="15sp"
                         android:background="@drawable/table_cell_bg" />
 
                     <TextView
@@ -143,6 +153,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:textSize="15sp"
                         android:background="@drawable/table_cell_bg" />
 
                     <TextView
@@ -150,6 +161,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:textSize="15sp"
                         android:background="@drawable/table_cell_bg" />
 
                 </TableRow>
@@ -161,6 +173,7 @@
                 android:layout_below="@id/gearTable"
                 android:id="@+id/gear_major"
                 android:paddingLeft="10dp"
+                android:textSize="15sp"
                 android:text="@string/major"
                 android:background="@drawable/table_cell_bg"/>
 
@@ -170,6 +183,7 @@
                 android:layout_below="@id/gear_major"
                 android:id="@+id/gear_major_value"
                 android:paddingLeft="10dp"
+                android:textSize="15sp"
                 android:background="@drawable/table_cell_bg"/>
 
             <TextView
@@ -179,6 +193,7 @@
                 android:id="@+id/gear_minor"
                 android:paddingLeft="10dp"
                 android:text="@string/minor"
+                android:textSize="15sp"
                 android:background="@drawable/table_cell_bg"/>
 
             <TextView
@@ -187,6 +202,7 @@
                 android:layout_below="@id/gear_minor"
                 android:paddingLeft="10dp"
                 android:id="@+id/gear_minor_value"
+                android:textSize="15sp"
                 android:background="@drawable/table_cell_bg"/>
 
         </RelativeLayout>
