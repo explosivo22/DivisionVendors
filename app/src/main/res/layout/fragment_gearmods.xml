@@ -55,6 +55,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:textSize="15dp"
                         android:background="@drawable/table_cell_bg"/>
 
                     <TextView
@@ -62,6 +63,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:textSize="15dp"
                         android:background="@drawable/table_cell_bg"/>
 
                 </TableRow>
@@ -73,6 +75,7 @@
                 android:layout_below="@id/gearmodTable"
                 android:id="@+id/gearmode_attribute"
                 android:background="@drawable/table_cell_bg"
+                android:textSize="15dp"
                 android:gravity="center"/>
 
         </RelativeLayout>
