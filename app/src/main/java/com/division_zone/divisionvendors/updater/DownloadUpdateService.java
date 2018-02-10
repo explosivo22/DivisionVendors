@@ -73,7 +73,7 @@ public class DownloadUpdateService extends Service {
                                     ctxt.startActivity(openFileIntent);
                                 } else {
                                     Intent install = new Intent(Intent.ACTION_VIEW);
-                                    install.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    install.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                     install.setDataAndType(downloadUri,
                                             "application/vnd.android.package-archive");
                                     ctxt.startActivity(install);
