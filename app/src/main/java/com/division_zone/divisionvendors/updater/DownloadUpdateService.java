@@ -16,6 +16,11 @@ import android.support.v4.content.FileProvider;
 import android.util.Log;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class DownloadUpdateService extends Service {
 
@@ -28,15 +33,12 @@ public class DownloadUpdateService extends Service {
         if (intent != null) {
 
             String downloadURL = intent.getStringExtra("downloadURL");
-            File newApkFilePath = getExternalFilesDir(null);
-            final File newApkFile = new File(newApkFilePath,FILE_NAME);
-            newApkFile.setReadable(true, false);
-            Uri downloadUri = Uri.fromFile(newApkFile);
-            if (Build.VERSION.SDK_INT >= 24){
-                downloadUri = FileProvider.getUriForFile(getApplicationContext(), getApplicationContext().getPackageName(),newApkFile);
-            }
+            final String newApkFilePath = getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "/" + FILE_NAME;
+            final File newApkFile = new File(newApkFilePath);
+            final Uri downloadUri = Uri.parse("file://" + newApkFile);
             if (newApkFile.exists())
                 newApkFile.delete();
+
             DownloadManager.Request request = new DownloadManager.Request(Uri.parse(downloadURL));
             request.setTitle(DOWNLOAD_UPDATE_TITLE);
 
@@ -48,7 +50,6 @@ public class DownloadUpdateService extends Service {
             final long startedDownloadId = manager.enqueue(request);
 
             //set BroadcastReceiver to install app when .apk is downloaded
-            final Uri finalDownloadUri = downloadUri;
             BroadcastReceiver onComplete = new BroadcastReceiver() {
                 public void onReceive(Context ctxt, Intent intent) {
                     long finishedDownloadId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
@@ -64,15 +65,17 @@ public class DownloadUpdateService extends Service {
                             if (status == DownloadManager.STATUS_SUCCESSFUL) {
                                 //open the downloaded file
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                    Intent install = new Intent(Intent.ACTION_INSTALL_PACKAGE);
-                                    install.putExtra(Intent.EXTRA_NOT_UNKNOWN_SOURCE, true);
-                                    install.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                    install.setDataAndType(finalDownloadUri, manager.getMimeTypeForDownloadedFile(startedDownloadId));
-                                    ctxt.startActivity(install);
+                                    Uri contentUri = FileProvider.getUriForFile(ctxt, ctxt.getPackageName() + ".provider", newApkFile);
+                                    Intent openFileIntent = new Intent(Intent.ACTION_VIEW);
+                                    openFileIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                    openFileIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    openFileIntent.setData(contentUri);
+                                    ctxt.startActivity(openFileIntent);
                                 } else {
                                     Intent install = new Intent(Intent.ACTION_VIEW);
-                                    install.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    install.setDataAndType(finalDownloadUri, manager.getMimeTypeForDownloadedFile(startedDownloadId));
+                                    install.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    install.setDataAndType(downloadUri,
+                                            "application/vnd.android.package-archive");
                                     ctxt.startActivity(install);
                                 }
 
